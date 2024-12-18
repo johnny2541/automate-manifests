@@ -6,12 +6,10 @@ import time
 import keyboard
 
 # Project Module
-from ui import printLXState
+from src.constants import *
 
 #######################################################
-TIMESLEEPZEROPOINTTWO = 0.2
-TIMESLEEPZEROPOINTFIVE = 0.5
-TIMESLEEPONESECOND = 1
+
 
 #######################################################
 
@@ -31,13 +29,12 @@ def reciveLX():
 data = reciveLX()
 
 for item in data :
-    printLXState(item,"checking")
-    time.sleep(TIMESLEEPZEROPOINTTWO)
+    print(f"{bcolors.OKBLUE}{item}  {bcolors.OKCYAN}is {bcolors.WARNING}checking...")
+    time.sleep(TIMESLEEP_ZEROPOINTTWO)
 
 
 
 #######################################################
-
 for item in data:
 
     #######################################################################################
@@ -45,9 +42,9 @@ for item in data:
         try:
              x, y = pyautogui.locateCenterOnScreen("assets/pack_button.PNG",  confidence=0.8)
         except pyautogui.ImageNotFoundException:
-            time.sleep(TIMESLEEPZEROPOINTFIVE)
+            time.sleep(TIMESLEEP_ZEROPOINTFIVE)
         else:
-            time.sleep(TIMESLEEPZEROPOINTTWO)
+            time.sleep(TIMESLEEP_ZEROPOINTTWO)
 
             # Copy the current item to the clipboard
             pyperclip.copy(item)
@@ -73,9 +70,9 @@ for item in data:
         try:
              x, y = pyautogui.locateCenterOnScreen("assets/print_button.PNG",  confidence=0.8)
         except pyautogui.ImageNotFoundException:
-            time.sleep(TIMESLEEPZEROPOINTFIVE)
+            time.sleep(TIMESLEEP_ZEROPOINTFIVE)
         else:
-            time.sleep(TIMESLEEPONESECOND)
+            time.sleep(TIMESLEEP_ONESECOND)
             pyautogui.press("enter")
             pyautogui.keyDown("ctrl")
             pyautogui.press("w")
@@ -83,7 +80,7 @@ for item in data:
             break
 #######################################################################################
 
-    printLXState(item,"completed")
+    print(f"{bcolors.OKBLUE}{item}  is {bcolors.OKGREEN}completed")
 
 #######################################################################################
 

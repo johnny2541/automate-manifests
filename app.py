@@ -1,88 +1,74 @@
 # Pip module
-import pyscreeze
 import pyautogui 
 import pyperclip 
 import time
-import keyboard
 
 # Project Module
 from src.constants import *
 
-#######################################################
-
-
-#######################################################
-
-#######################################################
 def reciveLX():
     # Get array from notepad
-    with open("docs/input.txt","r") as file:
-     data = file.read().split() # Split on spaces or newlines
-     return data
+    with open("docs/input.txt", "r") as file:
+        data = file.read().split()  # Split on spaces or newlines
+    return data
 
-
-#######################################################
-
-
-#######################################################
-
-data = reciveLX()
-
-for item in data :
-    print(f"{bcolors.OKBLUE}{item}  {bcolors.OKCYAN}is {bcolors.WARNING}checking...")
-    time.sleep(TIMESLEEP_ZEROPOINTTWO)
-
-
-
-#######################################################
-for item in data:
-
-    #######################################################################################
+def locate_to_action(image_path, confidence=0.8, sleep_time=TIMESLEEP_ZEROPOINTTWO):
     while True:
         try:
-             x, y = pyautogui.locateCenterOnScreen("assets/pack_button.PNG",  confidence=0.8)
+            x, y = pyautogui.locateCenterOnScreen(image_path, confidence=confidence)
         except pyautogui.ImageNotFoundException:
             time.sleep(TIMESLEEP_ZEROPOINTFIVE)
         else:
-            time.sleep(TIMESLEEP_ZEROPOINTTWO)
+            time.sleep(sleep_time)
+            return x, y
 
-            # Copy the current item to the clipboard
-            pyperclip.copy(item)
-            
-            # Simulate Ctrl + a to select all and simulate blackspace to clear area
-            pyautogui.keyDown("ctrl")
-            pyautogui.press("a")
-            pyautogui.keyUp("ctrl")
-            pyautogui.press("backspace")
+def paste_item(item):
+    pyperclip.copy(item)
+    pyautogui.keyDown("ctrl")
+    pyautogui.press("a")
+    pyautogui.keyUp("ctrl")
+    pyautogui.press("backspace")
+    pyautogui.keyDown("ctrl")
+    pyautogui.press("v")
+    pyautogui.keyUp("ctrl")
+    pyautogui.press("enter")
 
-            # Simulate Ctrl + V to paste
-            pyautogui.keyDown("ctrl")
-            pyautogui.press("v")
-            pyautogui.keyUp("ctrl")
-            
-            # Press Enter after pasting (optional, e.g., to move to the next line)
-            pyautogui.press("enter")
-            break
-    #################################################################################
+def close_tab():
+    pyautogui.press("enter")
+    pyautogui.keyDown("ctrl")
+    pyautogui.press("w")
+    pyautogui.keyUp("ctrl")
 
-    #################################################################################
-    while True:
-        try:
-             x, y = pyautogui.locateCenterOnScreen("assets/print_button.PNG",  confidence=0.8)
-        except pyautogui.ImageNotFoundException:
-            time.sleep(TIMESLEEP_ZEROPOINTFIVE)
-        else:
-            time.sleep(TIMESLEEP_ONESECOND)
-            pyautogui.press("enter")
-            pyautogui.keyDown("ctrl")
-            pyautogui.press("w")
-            pyautogui.keyUp("ctrl")
-            break
-#######################################################################################
+def print_status(item, status):
+    print(f"{bcolors.OKBLUE}{item} {bcolors.OKCYAN} is {status}")
 
-    print(f"{bcolors.OKBLUE}{item}  is {bcolors.OKGREEN}completed")
+def validate_data(data):
+    for item in data:
+        if len(item) != 10:
+            print(f"{bcolors.FAIL}Error: Item '{item}' does not have a length of 10.")
+            return False
+    return True
 
-#######################################################################################
+def main():
+    data = reciveLX()
+
+    if not validate_data(data):
+        return
+
+    for item in data:
+        print_status(item, f"{bcolors.WARNING}checking...")
+        time.sleep(TIMESLEEP_ZEROPOINTTWO)
+
+        locate_to_action("assets/pack_button.PNG")
+        paste_item(item)
+        
+        locate_to_action("assets/print_button.PNG", sleep_time=TIMESLEEP_ONESECOND)
+        close_tab()
+
+        print_status(item, f"{bcolors.OKGREEN}completed!!!")
+
+if __name__ == "__main__":
+    main()
 
 
 

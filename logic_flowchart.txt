@@ -1,0 +1,23 @@
+1. Start
+2. Import necessary modules
+3. Define constants and helper functions:
+   - reciveLX()
+   - locate_to_action(image_path, confidence, sleep_time)
+   - paste_item(item)
+   - close_tab()
+   - print_status(item, status)
+   - validate_data(data)
+4. Define main() function:
+   a. Call reciveLX() to read data from "docs/input.txt"
+   b. Call validate_data(data)
+      i. If validation fails, print error and exit
+   c. For each item in data:
+      i. Print status "checking..."
+      ii. Call locate_to_action("assets/pack_button.PNG")
+      iii. Call paste_item(item)
+      iv. Call locate_to_action("assets/print_button.PNG", sleep_time=TIMESLEEP_ONESECOND)
+      v. Call close_tab()
+      vi. Print status "completed!!!"
+5. If __name__ == "__main__":
+   a. Call main()
+6. End

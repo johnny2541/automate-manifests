@@ -1,0 +1,30 @@
+Folder PATH listing
+Volume serial number is E248-A39F
+C:.
+|   .gitignore
+|   app.py
+|   project_structure.txt
+|   README.md
+|   requirements.txt
+|   
++---.venv
++---assets
+|       beeb1.mp3
+|       lert-102266.mp3
+|       ok_button.PNG
+|       pack_button.PNG
+|       print_button.PNG
+|       red_text.PNG
+|       
++---docs
+|       input.txt
+|       test.txt
+|       
+\---src
+    |   constants.py
+    |   resources.py
+    |   test.py
+    |   
+    \---__pycache__
+            constants.cpython-313.pyc
+            

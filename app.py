@@ -42,18 +42,9 @@ def close_tab():
 def print_status(item, status):
     print(f"{bcolors.OKBLUE}{item} {bcolors.OKCYAN} is {status}")
 
-def validate_data(data):
-    for item in data:
-        if len(item) != 10:
-            print(f"{bcolors.FAIL}Error: Item '{item}' does not have a length of 10.")
-            return False
-    return True
 
 def main():
     data = reciveLX()
-
-    if not validate_data(data):
-        return
 
     for item in data:
         print_status(item, f"{bcolors.WARNING}checking...")

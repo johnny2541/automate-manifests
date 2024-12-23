@@ -34,7 +34,6 @@ def paste_item(item):
     pyautogui.press("enter")
 
 def close_tab():
-    pyautogui.press("enter")
     pyautogui.keyDown("ctrl")
     pyautogui.press("w")
     pyautogui.keyUp("ctrl")
@@ -54,7 +53,9 @@ def main():
         paste_item(item)
         
         locate_to_action("assets/print_button.PNG", sleep_time=TIMESLEEP_ONESECOND)
-        close_tab()
+        pyautogui.press("enter") 
+        time.sleep(TIMESLEEP_ZEROPOINTTWO)
+        close_tab() 
 
         print_status(item, f"{bcolors.OKGREEN}completed!!!")
 

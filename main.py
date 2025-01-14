@@ -49,10 +49,10 @@ def main():
         print_status(item, f"{bcolors.WARNING}checking...")
         time.sleep(TIMESLEEP_ZEROPOINTTWO)
 
-        locate_to_action("assets/pack_button.PNG")
+        locate_to_action("assets/pack_button_2.PNG")
         paste_item(item)
         
-        locate_to_action("assets/print_button.PNG", sleep_time=TIMESLEEP_ONESECOND)
+        locate_to_action("assets/print_button.PNG", sleep_time=TIMESLEEP_ZEROPOINTTWO)
         pyautogui.press("enter") 
         time.sleep(TIMESLEEP_ZEROPOINTTWO)
         close_tab() 
